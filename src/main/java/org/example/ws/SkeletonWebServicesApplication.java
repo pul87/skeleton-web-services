@@ -5,9 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@SpringBootApplication
+
 @EnableTransactionManagement // Abilita la gestione delle transazioni e ricerca le annotazioni @Transacional ecc..
 @EnableCaching // Abilita il caching e cerca le annotazioni correlate
+@SpringBootApplication
 public class SkeletonWebServicesApplication {
 
 	public static void main(String[] args) {
