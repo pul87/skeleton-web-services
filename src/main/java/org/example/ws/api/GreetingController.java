@@ -2,6 +2,7 @@ package org.example.ws.api;
 
 import java.util.Collection;
 import org.example.ws.model.Greeting;
+import org.example.ws.service.EmailService;
 import org.example.ws.service.GreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class GreetingController {
+	
+	@Autowired
+	private EmailService emailService;
 	
 	@Autowired
 	private GreetingService greetingService;
@@ -66,5 +70,13 @@ public class GreetingController {
 		greetingService.delete(id);
 		
 		return new ResponseEntity<Greeting>(HttpStatus.NO_CONTENT);
+	}
+	
+	@GetMapping(value="/greetings/email")
+	public String sendEmail() {
+		
+		emailService.sendAsyncWithResult(new Greeting());
+		
+		return "ok";
 	}
 }
