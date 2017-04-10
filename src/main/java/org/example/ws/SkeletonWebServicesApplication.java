@@ -3,11 +3,13 @@ package org.example.ws;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 @EnableTransactionManagement // Abilita la gestione delle transazioni e ricerca le annotazioni @Transacional ecc..
 @EnableCaching // Abilita il caching e cerca le annotazioni correlate
+@EnableScheduling // Abilita la ricerca di annotazioni legate ai processi schedulati
 @SpringBootApplication
 public class SkeletonWebServicesApplication {
 
