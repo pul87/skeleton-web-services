@@ -19,7 +19,7 @@ public class GreetingBatchBean {
 	private GreetingService greetingService;
 	
 	// Gira ad ogni "0" e "30" di ogni minuto di ogni ora di ogni giorno di ogni mese di ogni anno.
-	@Scheduled(cron="0,30 * * * * *")
+	//@Scheduled(cron="0,30 * * * * *")
 	public void chronJob() {
 		logger.info("> chronJob ogni 0 e 30 secondi di ogni minuto.");
 		
@@ -31,17 +31,17 @@ public class GreetingBatchBean {
 		logger.info("< chronJob");
 	}
 	
-	@Scheduled( 
+	/*@Scheduled( 
 			initialDelay=5000,
-			fixedRate=5000 )
+			fixedRate=5000 )*/
 	public void fixedRateWithInitialDelay() {
 		logger.info("> chronJob ogni 5 secondi, dopo 5 secondi dalla partenza.");
 	}
 	
 	// Viene eseguito dopo un fixedDelay dall'esecuzione precedente
-	@Scheduled( 
+	/*@Scheduled( 
 			initialDelay=2000,
-			fixedDelay=10000 )
+			fixedDelay=10000 )*/
 	public void fixedDelayJob() {
 		logger.info("> chronJob ogni 10 secondi dopo il termine dell'esecizione precedente, dopo 2 secondi dalla partenza.");
 	}
