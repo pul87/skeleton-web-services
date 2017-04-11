@@ -2,6 +2,9 @@ package org.example.ws.service;
 
 import java.util.Collection;
 
+import javax.persistence.EntityExistsException;
+import javax.persistence.NoResultException;
+
 import org.example.ws.model.Greeting;
 import org.example.ws.repository.GreetingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +44,8 @@ public class GreetingServiceBean implements GreetingService {
 			key="#result.id") // definisce il valore univoco da usare come chiave nella cache, il valore di ritorno della create viene inserito in result quindil'id risulta essere #result.id
 	public Greeting create(Greeting greeting) {
 		if( greeting.getId() != null ) {
-			return null;
+
+            throw new EntityExistsException("The id attribute must be null to persist a new entity.");
 		}
 		
 		Greeting savedGreeting = greetingRepository.save(greeting);
@@ -59,7 +63,7 @@ public class GreetingServiceBean implements GreetingService {
 		Greeting greetingPersisted = greetingRepository.findOne(greeting.getId());
 		
 		if(greetingPersisted == null ) {
-			return null;
+			throw new NoResultException("Requested entity not found.");
 		}
 		Greeting updatedGreeting = greetingRepository.save(greetingPersisted);
 		
