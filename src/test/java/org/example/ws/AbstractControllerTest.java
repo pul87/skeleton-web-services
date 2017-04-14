@@ -2,6 +2,7 @@ package org.example.ws;
 
 import java.io.IOException;
 
+import org.example.ws.api.GreetingController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -24,6 +25,12 @@ public abstract class AbstractControllerTest extends AbstractTest {
 	
 	protected void setup() {
 		mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();	
+	}
+	
+	// Setup di mockito, consente di evitare di creare un inter WebApplicationContext
+	// dando la possibilità di testare solamente un controller
+	protected void setup(GreetingController controller) {
+		mvc = MockMvcBuilders.standaloneSetup(controller).build();
 	}
 	
 	protected String mapToJson(Object obj) throws JsonProcessingException {
