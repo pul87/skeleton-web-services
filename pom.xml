@@ -52,6 +52,7 @@
         </dependency>
         <!-- End Cache Dependencies -->
         
+        <!-- Application Monitoring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
