@@ -1,0 +1,43 @@
+buildscript {
+	repositories {
+		jcenter()
+	}
+
+	dependencies {
+		classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '1.5.2.RELEASE'
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'spring-boot'
+
+group = 'org.example.ws'
+version = '0.0.1-SNAPSHOT'
+
+description = """skeleton-web-services"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+repositories {
+     jcenter()
+}
+
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'1.5.2.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version:'1.5.2.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:'1.5.2.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version:'1.5.2.RELEASE'
+    compile group: 'org.springframework', name: 'spring-context-support'
+    compile group: 'com.github.ben-manes.caffeine', name: 'caffeine', version:'2.3.5'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version:'1.5.2.RELEASE'
+    runtime group: 'org.hsqldb', name: 'hsqldb', version:'2.3.3'
+    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'1.5.2.RELEASE') {
+		exclude(module: 'commons-logging')
+    }
+}
