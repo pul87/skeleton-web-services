@@ -15,6 +15,7 @@ apply plugin: 'project-report'
 apply plugin: 'build-dashboard'
 apply plugin: 'jacoco'
 apply plugin: 'checkstyle'
+apply plugin: 'pmd'
 
 group = 'org.example.ws'
 version = '0.0.1-SNAPSHOT'
@@ -26,6 +27,7 @@ ext {
 	caffeineVersion = '2.3.5'
 	hsqldbVersion = '2.3.3'
 	checkstyleVersion = '7.6.1'
+	pmdVersion = '5.5.5'
 }
 
 description = """skeleton-web-services"""
@@ -72,4 +74,10 @@ test.finalizedBy jacocoTestReport
 checkstyle {
 	toolVersion = checkstyleVersion
 	config = rootProject.resources.text.fromFile('etc/checkstyle/rules.xml')
+}
+
+pmd {
+	toolVersion = pmdVersion
+	ruleSetConfig = rootProject.resources.text.fromFile('etc/pmd/ruleset.xml')
+	ignoreFailures = true
 }

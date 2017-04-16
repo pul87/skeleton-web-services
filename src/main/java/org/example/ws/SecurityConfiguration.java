@@ -15,48 +15,49 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
+@SuppressWarnings("PMD.AtLeastOneConstructor")
 public class SecurityConfiguration {
 
     @Autowired
-    private AccountAuthenticationProvider accountAuthenticationProvider;
+    private transient AccountAuthenticationProvider accountAuthenticationProvider;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-	return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) {
-	auth.authenticationProvider(accountAuthenticationProvider);
+    public void configureGlobal(final AuthenticationManagerBuilder auth) {
+        auth.authenticationProvider(accountAuthenticationProvider);
     }
 
     @Configuration
     @Order(1)
     public static class ApiWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-	    // @formatter:off
-	    http.antMatcher("/api/**").authorizeRequests().anyRequest().hasAnyRole("USER", "SYSADMIN", "ADMIN").and()
-		    .httpBasic().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-		    .csrf().disable();
+        @Override
+        protected void configure(final HttpSecurity http) throws Exception {
+            // @formatter:off
+            http.antMatcher("/api/**").authorizeRequests().anyRequest().hasAnyRole("USER", "SYSADMIN", "ADMIN").and()
+                    .httpBasic().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                    .csrf().disable();
 
-	    // @formatter:on
-	}
+            // @formatter:on
+        }
     }
 
     @Configuration
     @Order(2)
     public static class ActuatorWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-	    // @formatter:off
-	    http.antMatcher("/actuators/**").authorizeRequests().anyRequest().hasRole("SYSADMIN").and().httpBasic()
-		    .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf()
-		    .disable();
+        @Override
+        protected void configure(final HttpSecurity http) throws Exception {
+            // @formatter:off
+            http.antMatcher("/actuators/**").authorizeRequests().anyRequest().hasRole("SYSADMIN").and().httpBasic()
+                    .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf()
+                    .disable();
 
-	    // @formatter:on
-	}
+            // @formatter:on
+        }
     }
 }
