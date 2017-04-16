@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class GreetingController {
+public class GreetingController extends BaseController {
 	
 	@Autowired
 	private EmailService emailService;
