@@ -13,14 +13,23 @@ apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
 apply plugin: 'project-report'
 apply plugin: 'build-dashboard'
+apply plugin: 'jacoco'
 
 group = 'org.example.ws'
 version = '0.0.1-SNAPSHOT'
 
+ext {
+	javaVersion = 1.8
+	jacocoVersion = '0.7.6.201602180812'
+	springBootVersion = '1.5.2.RELEASE'
+	caffeineVersion = '2.3.5'
+	hsqldbVersion = '2.3.3'
+}
+
 description = """skeleton-web-services"""
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = javaVersion
+targetCompatibility = javaVersion
 
 tasks.withType(JavaCompile) {
 	options.encoding = 'UTF-8'
@@ -31,15 +40,29 @@ repositories {
 }
 
 dependencies {
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'1.5.2.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version:'1.5.2.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:'1.5.2.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version:'1.5.2.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: springBootVersion
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: springBootVersion
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: springBootVersion
     compile group: 'org.springframework', name: 'spring-context-support'
-    compile group: 'com.github.ben-manes.caffeine', name: 'caffeine', version:'2.3.5'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version:'1.5.2.RELEASE'
-    runtime group: 'org.hsqldb', name: 'hsqldb', version:'2.3.3'
-    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'1.5.2.RELEASE') {
+    compile group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: caffeineVersion
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: springBootVersion
+    runtime group: 'org.hsqldb', name: 'hsqldb', version: hsqldbVersion
+    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springBootVersion) {
 		exclude(module: 'commons-logging')
     }
 }
+
+jacoco {
+	toolVersion = jacocoVersion
+}
+
+jacocoTestReport {
+	reports {
+		html.enabled = true
+		xml.enabled = true
+		csv.enabled = true
+	}
+}
+
+test.finalizedBy jacocoTestReport
