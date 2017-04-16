@@ -4,5 +4,5 @@ import org.example.ws.model.Account;
 
 public interface AccountService {
 
-	public Account findByUsername(String username);
+    public Account findByUsername(String username);
 }

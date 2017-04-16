@@ -17,35 +17,29 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AccountUserDetailsService implements UserDetailsService {
-	
-	@Autowired
-	private AccountService accountService;
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Account account = accountService.findByUsername(username);
-		
-		if (account == null) {
-			// User Not Found
-			return null;
-		}
-		
-		Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-		
-		for (Role role : account.getRoles()) {
-			grantedAuthorities.add(new SimpleGrantedAuthority(role.getCode()));
-		}
-		
-		User userDetails = new User(
-				account.getUsername(), 
-				account.getPassword(), 
-				account.isEnabled(), 
-				!account.isExpired(), 
-				!account.isCredentialexpired(), 
-				!account.isLocked(), 
-				grantedAuthorities);
-		
-		return userDetails;
+    @Autowired
+    private AccountService accountService;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	Account account = accountService.findByUsername(username);
+
+	if (account == null) {
+	    // User Not Found
+	    return null;
 	}
+
+	Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+
+	for (Role role : account.getRoles()) {
+	    grantedAuthorities.add(new SimpleGrantedAuthority(role.getCode()));
+	}
+
+	User userDetails = new User(account.getUsername(), account.getPassword(), account.isEnabled(),
+		!account.isExpired(), !account.isCredentialexpired(), !account.isLocked(), grantedAuthorities);
+
+	return userDetails;
+    }
 
 }

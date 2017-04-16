@@ -7,40 +7,40 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Role {
 
-	@Id
-	private Long id;
-	
-	@NotNull
-	private String code;
-	
-	@NotNull
-	private String label;
-	
-	public Role() {
+    @Id
+    private Long id;
 
-	}
+    @NotNull
+    private String code;
 
-	public Long getId() {
-		return id;
-	}
+    @NotNull
+    private String label;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Role() {
 
-	public String getCode() {
-		return code;
-	}
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public Long getId() {
+	return id;
+    }
 
-	public String getLabel() {
-		return label;
-	}
+    public void setId(Long id) {
+	this.id = id;
+    }
 
-	public void setLabel(String label) {
-		this.label = label;
-	}
+    public String getCode() {
+	return code;
+    }
+
+    public void setCode(String code) {
+	this.code = code;
+    }
+
+    public String getLabel() {
+	return label;
+    }
+
+    public void setLabel(String label) {
+	this.label = label;
+    }
 }

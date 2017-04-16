@@ -17,30 +17,32 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @WebAppConfiguration // Spring creerà un web application context invece che un application context
 public abstract class AbstractControllerTest extends AbstractTest {
 
-	// simula le interazioni http
-	protected MockMvc mvc;
-	
-	@Autowired
-	private WebApplicationContext webApplicationContext;
-	
-	protected void setup() {
-		mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();	
-	}
-	
-	// Setup di mockito, consente di evitare di creare un inter WebApplicationContext
-	// dando la possibilità di testare solamente un controller
-	protected void setup(GreetingController controller) {
-		mvc = MockMvcBuilders.standaloneSetup(controller).build();
-	}
-	
-	protected String mapToJson(Object obj) throws JsonProcessingException {
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(obj);
-	}
-	
-	protected <T> T mapFromJson(String json, Class<T> clazz) throws JsonParseException, JsonMappingException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.readValue(json, clazz);
-	}
-	
+    // simula le interazioni http
+    protected MockMvc mvc;
+
+    @Autowired
+    private WebApplicationContext webApplicationContext;
+
+    protected void setup() {
+        mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+    }
+
+    // Setup di mockito, consente di evitare di creare un inter
+    // WebApplicationContext
+    // dando la possibilità di testare solamente un controller
+    protected void setup(GreetingController controller) {
+        mvc = MockMvcBuilders.standaloneSetup(controller).build();
+    }
+
+    protected String mapToJson(Object obj) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(obj);
+    }
+
+    protected <T> T mapFromJson(String json, Class<T> clazz)
+            throws JsonParseException, JsonMappingException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(json, clazz);
+    }
+
 }

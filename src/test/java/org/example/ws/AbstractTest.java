@@ -10,6 +10,5 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public abstract class AbstractTest {
 
-	protected Logger logger = LoggerFactory.getLogger(this.getClass());
-
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
 }

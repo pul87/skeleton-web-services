@@ -14,16 +14,18 @@ apply plugin: 'spring-boot'
 apply plugin: 'project-report'
 apply plugin: 'build-dashboard'
 apply plugin: 'jacoco'
+apply plugin: 'checkstyle'
 
 group = 'org.example.ws'
 version = '0.0.1-SNAPSHOT'
 
 ext {
-	javaVersion = 1.8
+	javaVersion = '1.8'
 	jacocoVersion = '0.7.6.201602180812'
 	springBootVersion = '1.5.2.RELEASE'
 	caffeineVersion = '2.3.5'
 	hsqldbVersion = '2.3.3'
+	checkstyleVersion = '7.6.1'
 }
 
 description = """skeleton-web-services"""
@@ -66,3 +68,8 @@ jacocoTestReport {
 }
 
 test.finalizedBy jacocoTestReport
+
+checkstyle {
+	toolVersion = checkstyleVersion
+	config = rootProject.resources.text.fromFile('etc/checkstyle/rules.xml')
+}

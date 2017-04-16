@@ -6,16 +6,16 @@ import org.example.ws.model.Greeting;
 
 public interface GreetingService {
 
-	Collection<Greeting> findAll();
-	
-	Greeting findOne(Long id);
-	
-	Greeting create(Greeting greeting);
-	
-	Greeting update(Greeting greeting);
-	
-	void delete(Long id);
-	
-	// Per pulire tutta la cache ( Opzionale )
-	void evictCache();
+    Collection<Greeting> findAll();
+
+    Greeting findOne(Long id);
+
+    Greeting create(Greeting greeting);
+
+    Greeting update(Greeting greeting);
+
+    void delete(Long id);
+
+    // Per pulire tutta la cache ( Opzionale )
+    void evictCache();
 }

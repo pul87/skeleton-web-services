@@ -17,64 +17,46 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-	@Autowired
-	private AccountAuthenticationProvider accountAuthenticationProvider;
-	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-	
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) {
-		auth.authenticationProvider(accountAuthenticationProvider);
-	}
-	
-	@Configuration
-	@Order(1)
-	public static class ApiWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private AccountAuthenticationProvider accountAuthenticationProvider;
 
-		@Override
-		protected void configure(HttpSecurity http) throws Exception {
-			// @formatter:off
-			http
-				.antMatcher("/api/**")
-					.authorizeRequests()
-						.anyRequest().hasAnyRole("USER","SYSADMIN","ADMIN")
-				.and()
-				.httpBasic()
-				.and()
-				.sessionManagement()
-					.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				.and()
-				.csrf().disable();
-			
-			// @formatter:on
-		}	
-	}
-	
-	@Configuration
-	@Order(2)
-	public static class ActuatorWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+	return new BCryptPasswordEncoder();
+    }
 
-		@Override
-		protected void configure(HttpSecurity http) throws Exception {
-			// @formatter:off
-			http
-				.antMatcher("/actuators/**")
-					.authorizeRequests()
-						.anyRequest()
-						.hasRole("SYSADMIN")
-				.and()
-				.httpBasic()
-				.and()
-				.sessionManagement()
-					.sessionCreationPolicy(SessionCreationPolicy.STATELESS)	
-				.and()
-				.csrf().disable();
-			
-			// @formatter:on
-		}	
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) {
+	auth.authenticationProvider(accountAuthenticationProvider);
+    }
+
+    @Configuration
+    @Order(1)
+    public static class ApiWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+	    // @formatter:off
+	    http.antMatcher("/api/**").authorizeRequests().anyRequest().hasAnyRole("USER", "SYSADMIN", "ADMIN").and()
+		    .httpBasic().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+		    .csrf().disable();
+
+	    // @formatter:on
 	}
+    }
+
+    @Configuration
+    @Order(2)
+    public static class ActuatorWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+	    // @formatter:off
+	    http.antMatcher("/actuators/**").authorizeRequests().anyRequest().hasRole("SYSADMIN").and().httpBasic()
+		    .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf()
+		    .disable();
+
+	    // @formatter:on
+	}
+    }
 }
-

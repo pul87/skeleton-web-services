@@ -8,6 +8,6 @@ import org.springframework.http.HttpStatus;
 
 public interface ExceptionAttributes {
 
-	Map<String, Object> getExceptionAttributes(Exception exception, 
-			HttpServletRequest httpRequest, HttpStatus httpStatus);
+    Map<String, Object> getExceptionAttributes(Exception exception, HttpServletRequest httpRequest,
+	    HttpStatus httpStatus);
 }
