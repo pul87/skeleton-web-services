@@ -20,6 +20,8 @@ apply plugin: 'pmd'
 group = 'org.example.ws'
 version = '0.0.1-SNAPSHOT'
 
+defaultTasks 'clean', 'build'
+
 ext {
 	javaVersion = '1.8'
 	jacocoVersion = '0.7.6.201602180812'
@@ -81,3 +83,6 @@ pmd {
 	ruleSetConfig = rootProject.resources.text.fromFile('etc/pmd/ruleset.xml')
 	ignoreFailures = true
 }
+
+check.finalizedBy projectReport
+projectReport.finalizedBy buildDashboard
