@@ -30,8 +30,6 @@ nbdist/
 
 ### Gradle ###
 .gradle
-.gradle/
-./gradle
 /build/
 
 # Ignore Gradle GUI config
